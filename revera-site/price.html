@@ -576,7 +576,7 @@
     function highlight(text, q) {
       const escaped = q.replace(/[.*+?^()|[\]\\]/g, '\\$&');
       const re = new RegExp('(' + escaped + ')', 'gi');
-      return escHtml(text).replace(re, '<mark></mark>');
+      return escHtml(text).replace(re, '<mark>$1</mark>');
     }
 
     function clearSearch() {
