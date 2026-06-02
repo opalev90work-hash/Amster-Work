@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Контакты органов исполнительной власти — REVÉRA</title>
+  <link rel="icon" type="image/png" href="revera_logo_01.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-dark:   #1A0503;
+      --color-cognac: #602A0A;
+      --color-amber:  #D6843F;
+      --color-beige:  #D4CFCC;
+      --color-white:  #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--color-dark);
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+      margin-bottom: 48px;
+    }
+    .back:hover { opacity: 1; }
+
+    .logo-small {
+      display: block;
+      width: 90px;
+      filter: invert(1) brightness(1.8);
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background-color: var(--color-cognac);
+      margin-bottom: 36px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      font-size: clamp(18px, 3vw, 26px);
+      letter-spacing: 0.06em;
+      color: var(--color-white);
+      margin-bottom: 48px;
+    }
+
+    .org-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .org-list li a {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(212, 207, 204, 0.1);
+      color: var(--color-beige);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .org-list li:first-child a {
+      border-top: 1px solid rgba(212, 207, 204, 0.1);
+    }
+
+    .org-list li a:hover {
+      opacity: 1;
+      color: var(--color-amber);
+    }
+
+    .org-list li a .icon {
+      flex-shrink: 0;
+      margin-top: 4px;
+      color: var(--color-cognac);
+    }
+
+    .org-list li a:hover .icon {
+      color: var(--color-amber);
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(212, 207, 204, 0.15);
+      font-size: 11px;
+      opacity: 0.4;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <a class="back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Назад
+    </a>
+
+    <h1>Контакты органов исполнительной власти в сфере охраны здоровья граждан</h1>
+
+    <ul class="org-list">
+      <li>
+        <a href="https://mosgorzdrav.ru/ru-RU/citizens/background.html" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Департамент здравоохранения города Москвы
+        </a>
+      </li>
+      <li>
+        <a href="https://77reg.roszdravnadzor.gov.ru/" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Территориальный орган Росздравнадзора по Москве и Московской области
+        </a>
+      </li>
+      <li>
+        <a href="https://77.rospotrebnadzor.ru/" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Управление Федеральной службы по надзору в сфере защиты прав потребителей и благополучия человека по городу Москве
+        </a>
+      </li>
+    </ul>
+
+    <footer>© 2026 REVÉRA</footer>
+  </div>
+</body>
+</html>

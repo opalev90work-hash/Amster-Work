@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Прайс-лист — REVÉRA</title>
+  <link rel="icon" type="image/png" href="revera_logo_01.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-dark:   #1A0503;
+      --color-cognac: #602A0A;
+      --color-amber:  #D6843F;
+      --color-beige:  #D4CFCC;
+      --color-blush:  #D8AFA0;
+      --color-white:  #FFFFFF;
+      --sidebar-w: 280px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--color-dark);
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 64px;
+      background-color: rgba(26, 5, 3, 0.96);
+      border-bottom: 1px solid rgba(212, 207, 204, 0.08);
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      text-decoration: none;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .back-btn:hover { opacity: 1; }
+    .back-btn svg { flex-shrink: 0; }
+
+    .topbar-logo {
+      height: 26px;
+      filter: invert(1) brightness(1.8);
+      display: block;
+    }
+
+    .topbar-title {
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      opacity: 0.45;
+    }
+
+    /* ── Search ── */
+    .search-wrap {
+      position: relative;
+      width: clamp(200px, 30vw, 340px);
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(212, 207, 204, 0.07);
+      border: 1px solid rgba(212, 207, 204, 0.15);
+      border-radius: 0;
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 8px 36px 8px 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: rgba(212, 207, 204, 0.35); }
+    .search-input:focus { border-color: rgba(212, 207, 204, 0.35); }
+    .search-icon {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.35;
+      pointer-events: none;
+    }
+    .search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.5;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: var(--color-beige);
+      font-size: 16px;
+      line-height: 1;
+      padding: 0;
+      display: none;
+      transition: opacity 0.2s;
+    }
+    .search-clear:hover { opacity: 1; }
+
+    /* ── Layout ── */
+    .layout {
+      display: flex;
+      padding-top: 64px;
+      min-height: 100vh;
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: var(--sidebar-w);
+      height: calc(100vh - 64px);
+      overflow-y: auto;
+      border-right: 1px solid rgba(212, 207, 204, 0.08);
+      padding: 28px 0 40px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(96,42,10,0.4) transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-track { background: transparent; }
+    .sidebar::-webkit-scrollbar-thumb { background-color: rgba(96,42,10,0.4); border-radius: 2px; }
+
+    .sidebar-heading {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      opacity: 0.35;
+      padding: 0 24px 16px;
+    }
+
+    .cat-nav-item {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      text-align: left;
+      cursor: pointer;
+      padding: 9px 24px;
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      letter-spacing: 0.02em;
+      color: var(--color-beige);
+      opacity: 0.5;
+      transition: opacity 0.15s, color 0.15s;
+      line-height: 1.4;
+      position: relative;
+    }
+    .cat-nav-item::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 2px;
+      background-color: var(--color-cognac);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .cat-nav-item:hover { opacity: 0.8; }
+    .cat-nav-item.active {
+      opacity: 1;
+      color: var(--color-white);
+    }
+    .cat-nav-item.active::before { opacity: 1; }
+
+    /* ── Main content ── */
+    .content {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      padding: 48px 56px 80px;
+      max-width: 900px;
+    }
+
+    /* ── Category section ── */
+    .cat-section {
+      margin-bottom: 56px;
+    }
+
+    .cat-section-title {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      font-size: clamp(16px, 2vw, 20px);
+      letter-spacing: 0.05em;
+      color: var(--color-white);
+      margin-bottom: 6px;
+    }
+
+    .cat-divider {
+      width: 32px;
+      height: 1px;
+      background-color: var(--color-cognac);
+      margin-bottom: 24px;
+    }
+
+    /* ── Service rows ── */
+    .service-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: baseline;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(212, 207, 204, 0.07);
+      transition: background-color 0.15s;
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-row:hover { background-color: rgba(212, 207, 204, 0.03); }
+
+    .service-name {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--color-beige);
+      line-height: 1.5;
+    }
+
+    .service-time {
+      font-size: 11px;
+      color: var(--color-beige);
+      opacity: 0.35;
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    .service-price {
+      font-family: "DM Sans", sans-serif;
+      font-weight: 400;
+      font-size: 13px;
+      color: var(--color-amber);
+      white-space: nowrap;
+      letter-spacing: 0.03em;
+      text-align: right;
+    }
+
+    /* ── Search results ── */
+    .search-results {
+      display: none;
+    }
+
+    .search-results.active {
+      display: block;
+    }
+
+    .search-results-heading {
+      font-family: "DM Sans", sans-serif;
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      opacity: 0.35;
+      margin-bottom: 24px;
+    }
+
+    .search-results-empty {
+      font-size: 13px;
+      color: var(--color-beige);
+      opacity: 0.4;
+      padding: 40px 0;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .search-cat-label {
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-cognac);
+      opacity: 0.9;
+      margin: 20px 0 8px;
+    }
+    .search-cat-label:first-child { margin-top: 0; }
+
+    .cat-sections-wrap {}
+
+    /* ── Mobile dropdown ── */
+    .mobile-cat-select {
+      display: none;
+      width: 100%;
+      background: rgba(212, 207, 204, 0.07);
+      border: 1px solid rgba(212, 207, 204, 0.15);
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      padding: 10px 14px;
+      outline: none;
+      margin-bottom: 32px;
+      -webkit-appearance: none;
+      appearance: none;
+      cursor: pointer;
+    }
+    .mobile-cat-wrap {
+      display: none;
+      position: relative;
+    }
+    .mobile-cat-wrap::after {
+      content: '';
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-70%) rotate(45deg);
+      width: 6px;
+      height: 6px;
+      border-right: 1px solid rgba(212, 207, 204, 0.5);
+      border-bottom: 1px solid rgba(212, 207, 204, 0.5);
+      pointer-events: none;
+      margin-bottom: 32px;
+    }
+
+    /* ── Highlight match ── */
+    mark {
+      background: none;
+      color: var(--color-amber);
+      font-style: normal;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 220px; }
+      .content { padding: 36px 32px 60px; }
+    }
+
+    @media (max-width: 700px) {
+      .sidebar { display: none; }
+      .content { margin-left: 0; padding: 24px 20px 60px; }
+      .topbar { padding: 0 20px; }
+      .search-wrap { width: clamp(140px, 40vw, 220px); }
+      .topbar-title { display: none; }
+      .mobile-cat-wrap { display: block; }
+      .service-row { grid-template-columns: 1fr auto; }
+      .service-time { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .topbar-logo { height: 20px; }
+      .search-wrap { width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="topbar-left">
+      <a href="index.html" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M19 12H5M5 12l7-7M5 12l7 7"/>
+        </svg>
+        Назад
+      </a>
+    </div>
+    <div class="search-wrap">
+      <input class="search-input" id="searchInput" type="text" placeholder="Поиск процедуры…" autocomplete="off">
+      <svg class="search-icon" id="searchIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+      <button class="search-clear" id="searchClear" onclick="clearSearch()" aria-label="Очистить">×</button>
+    </div>
+  </header>
+
+  <div class="layout">
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-heading">Категории</div>
+      <div id="catNav"></div>
+    </nav>
+
+    <!-- Content -->
+    <main class="content">
+
+      <!-- Mobile category selector -->
+      <div class="mobile-cat-wrap">
+        <select class="mobile-cat-select" id="mobileCatSelect" onchange="scrollToCategory(this.value)"></select>
+      </div>
+
+      <!-- Search results (shown when searching) -->
+      <div class="search-results" id="searchResults">
+        <div class="search-results-heading" id="searchHeading"></div>
+        <div id="searchResultsBody"></div>
+      </div>
+
+      <!-- All category sections -->
+      <div class="cat-sections-wrap" id="catSections"></div>
+
+    </main>
+  </div>
+
+  <script>
+    const PRICE_DATA = [{"category":"HELEO4 тм Фотодинамическая терапия","services":[{"name":"Фотодинамическая терапия HELEO4 лицо","time":"01:20","price":9000},{"name":"Фотодинамическая терапия HELEO4 лицо, шея","time":"01:30","price":11000},{"name":"Фотодинамическая терапия HELEO4 лицо (профилактика, лимфодренаж) без фотосенсибилизатора","time":"00:40","price":4500},{"name":"Фотодинамическая терапия HELEO4 тело 1 зона","time":"01:15","price":11000}]},{"category":"ICOONE","services":[{"name":"Коррекция фигуры Айкун Лазер 90 мин. 3500 руб.","time":"01:45","price":3500},{"name":"Гель для icoone","time":"00:15","price":500},{"name":"Индивидуальный костюм","time":"","price":1000},{"name":"Коррекция контуров лица на аппарате ICOONE LASER - 30 мин","time":"00:45","price":4000},{"name":"Коррекция фигуры на аппарате ICOONE LASER MED, 60 мин","time":"01:20","price":7000},{"name":"Коррекция фигуры на аппарате ICOONE LASER MED, 90 мин","time":"01:45","price":9000},{"name":"Коррекция фигуры Айкун Лазер 60 мин. 2900 руб.","time":"01:20","price":2900}]},{"category":"MORPHEUS 8  InMode микроигольчатый RF- лифтинг","services":[{"name":"Микроигольчатый RF- лифтинг (бедра)  InMode MORPHEUS 8","time":"02:00","price":70000},{"name":"Микроигольчатый RF- лифтинг (грудь)  InMode MORPHEUS 8","time":"01:30","price":75000},{"name":"Микроигольчатый RF- лифтинг (декольте)  InMode MORPHEUS 8","time":"01:00","price":55000},{"name":"Микроигольчатый RF- лифтинг (живот)  InMode MORPHEUS 8","time":"01:30","price":65000},{"name":"Микроигольчатый RF- лифтинг (кисти рук) InMode MORPHEUS 8","time":"01:00","price":45000},{"name":"Микроигольчатый RF- лифтинг (колени) InMode MORPHEUS 8","time":"01:00","price":45000},{"name":"Микроигольчатый RF- лифтинг (лицо и шея) InMode MORPHEUS 8","time":"01:30","price":70000},{"name":"Микроигольчатый RF- лифтинг (лицо) InMode MORPHEUS 8","time":"01:00","price":55000},{"name":"Микроигольчатый RF- лифтинг (лицо,шея, декольте) InMode MORPHEUS 8","time":"02:00","price":85000},{"name":"Микроигольчатый RF- лифтинг (плечи/руки)  InMode MORPHEUS 8","time":"01:30","price":80000},{"name":"Микроигольчатый RF- лифтинг (приорбитальная зона) InMode MORPHEUS 8","time":"01:00","price":40000},{"name":"Микроигольчатый RF- лифтинг (шея) InMode MORPHEUS 8","time":"01:00","price":55000},{"name":"Микроигольчатый RF- лифтинг (щеки)  InMode MORPHEUS 8","time":"01:00","price":50000},{"name":"Микроигольчатый RF- лифтинг (ягодицы)  InMode MORPHEUS 8","time":"02:00","price":60000}]},{"category":"Oligio монополярный радиолифтинг","services":[{"name":"Термовоздействие OLIGIO, 1 имп","time":"","price":400},{"name":"Термовоздействие OLIGIO, 200 имп, зона глаз","time":"","price":60000},{"name":"Термовоздействие OLIGIO, 300 имп, зона лица/ верхняя/средняя/нижняя треть/другая зона","time":"","price":90000},{"name":"Термовоздействие OLIGIO, 450 имп, зона лицо/шея/другая зона","time":"","price":120000},{"name":"Термовоздействие OLIGIO, 50 имп, (зона дополнительная к основной)","time":"","price":13500},{"name":"Термовоздействие OLIGIO, 600 имп, зона лицо","time":"","price":135000},{"name":"Термовоздействие OLIGIO, 900 имп, зона лицо+шея+декольте","time":"","price":165000},{"name":"Термовоздействие OLIGIO, тело 1200 имп, Ягодицы/Живот/Внутренняя поверхность плеч/Внутренняя поверхность бедер","time":"","price":195000},{"name":"Термовоздействие OLIGIO, тело 300 имп, Кисти рук/Колени/другая зона","time":"","price":90000},{"name":"Термовоздействие OLIGIO, тело 900 имп, Ягодицы/Живот/Внутренняя поверхность плеч/Внутренняя поверхность бедер","time":"","price":170000},{"name":"Электрод","time":"","price":700}]},{"category":"REGENERA PRO","services":[{"name":"REGENERA PRO Терапия восстановления волос","time":"02:00","price":145000}]},{"category":"UITHERA","services":[{"name":"Ультразвуковой лифтинг Ulthera 1 линиия","time":"01:00","price":400}]},{"category":"ULFIT-липолиз","services":[{"name":"ULFIT-липолиз 1 линия","time":"01:15","price":40}]},{"category":"ULTRAFORMER","services":[{"name":"Ultraformer MPT Toning 300 линий + сыворотка  DSB","time":"","price":29800},{"name":"Ультразвуковой SMAS-лифтинг Ultraformer MPT  (1 линия)","time":"","price":150}]},{"category":"VIVACE микроигольчатый  RF лифтинг","services":[{"name":"Микроигольчатый РФ-лифтинг (лицо и шея)  VIVACE","time":"01:30","price":50000},{"name":"Микроигольчатый РФ-лифтинг (лицо) VIVACE","time":"01:00","price":40000},{"name":"Микроигольчатый РФ-лифтинг (веки/ лоб/ подчелюстная зона)  VIVACE","time":"01:00","price":20000},{"name":"Микроигольчатый РФ-лифтинг (внешняя/(внутренняя поверхность плеча)  VIVACE","time":"01:00","price":52000},{"name":"Микроигольчатый РФ-лифтинг (внутренняя/  внешняя поверхность бедра)  VIVACE","time":"01:15","price":52000},{"name":"Микроигольчатый РФ-лифтинг (декольте)  VIVACE","time":"01:00","price":32000},{"name":"Микроигольчатый РФ-лифтинг (живот)  VIVACE","time":"01:30","price":52000},{"name":"Микроигольчатый РФ-лифтинг (кисти рук/ локти)  VIVACE","time":"01:00","price":24000},{"name":"Микроигольчатый РФ-лифтинг (колени) VIVACE","time":"01:00","price":30000},{"name":"Микроигольчатый РФ-лифтинг (шея)  VIVACE","time":"01:00","price":25000},{"name":"Микроигольчатый РФ-лифтинг (ягодицы)  VIVACE","time":"01:30","price":50000},{"name":"Микроигольчатый РФ-лифтинг(лицо, шея, декольте)  VIVACE","time":"01:30","price":60000}]},{"category":"Volnewmer","services":[{"name":"Монополярный RF-лифтинг  Volnewmer","time":"","price":300},{"name":"Электрод","time":"","price":700}]},{"category":"Анализы НОВЫЕ","services":[{"name":"24.159 Омега-3 индекс: содержание эйкозапентаеновой и докозагексаеновой кислот в мембране, в % содержании от общего содержания жирных кислот. КРОВЬ","time":"","price":5500},{"name":"24.159 Омега-3 индекс: содержание эйкозапентаеновой и докозагексаеновой кислот в мембране, в % содержании от общего содержания жирных кислот. КРОВЬ ИЗ ВЕНЫ","time":"","price":5500},{"name":"24.177 Стероидный профиль в слюне, 8 показателей слюна","time":"","price":7900},{"name":"Пролактин","time":"","price":730},{"name":"AL-G-138-КПК Анализ полиморфизов в генах, кодирующих рецепторы и ферменты метаболизма половых гармонов","time":"","price":10120},{"name":"B021 Гликированный гемоглобин","time":"","price":840},{"name":"B064  Витамин D, 25-ОН (гидроксикальциферол)","time":"","price":2380},{"name":"K001  Клинический анализ крови (общий анализ крови с лекоцитарной формулой и СОЭ)","time":"","price":810},{"name":"R011 Диагностика функции щитовидной железы (Т3 свободный, Т4 свободный, ТТГ)","time":"","price":1720},{"name":"R019 Биохимическая диагностика анемий (железо, ОЖСС, Трансферрин, Ферритин, Процент насыщения трансферрина железом, Витамин В12, Фолиевая кислота, Эритропоэтин)","time":"","price":5965},{"name":"R933 24 биохимических показателей","time":"","price":3990},{"name":"Фосфор неорганический","time":"","price":385},{"name":"Паратиреоидный гормон","time":"","price":1150},{"name":"Кальций ионизированный (Ca2+)","time":"","price":605},{"name":"Ретикулоциты","time":"","price":430},{"name":"В055. Кальций, Калий, Натрий, Хлор","time":"","price":1080},{"name":"Забор анализа крови","time":"","price":250},{"name":"Йод свободный","time":"","price":900}]},{"category":"Анестезия","services":[{"name":"B01.003.004.005 Анестезия проводниковая (проводниковая анестезия)","time":"","price":2000},{"name":"Местная анестезия","time":"","price":1000},{"name":"В01.003.004.005 Анестезия инфильтрационная (инфильтрационная анестезия)","time":"","price":2000}]},{"category":"Биоревитализация","services":[{"name":"REVI SILK","time":"01:00","price":23000},{"name":"REVI EYE 1ml","time":"01:00","price":18000},{"name":"Белотеро Гидро  (1мл)","time":"01:00","price":18000},{"name":"Белотеро Ревайв 1 мл","time":"","price":23000},{"name":"JALUPRO (3 мл)","time":"01:00","price":16200},{"name":"JALUPRO HMW","time":"01:00","price":18100},{"name":"Meso Eye C-71 (1мл)","time":"01:00","price":23000},{"name":"Meso Sculpt C 71 ( 1 мл.)","time":"01:00","price":23000},{"name":"Meso Wharton (1.5 мл)","time":"01:00","price":23000},{"name":"Meso-Xanthin (1.5 мл)","time":"01:00","price":23000},{"name":"NCTF 135 HA (3мл)","time":"01:00","price":16500}]},{"category":"Биорепарация (плинест)","services":[{"name":"PLINEST  (2мл)","time":"01:00","price":25000},{"name":"PLINEST FAST  (2мл)","time":"01:00","price":25000}]},{"category":"Ботулинотерапия","services":[{"name":"Лечение гипергидроза Диспорт, 600 ед","time":"","price":84000},{"name":"Лечение гипергидроза Диспорт 300 ед.","time":"01:00","price":42000},{"name":"Введение препарата - Диспорт","time":"00:40","price":230},{"name":"Введение препарата - Ксеомин","time":"00:40","price":440},{"name":"Введение препарата - Миотокс","time":"00:40","price":440},{"name":"Введение препарата - Релатокс","time":"00:40","price":450},{"name":"Коррекция десневой улыбки Диспортом","time":"00:40","price":10000},{"name":"Лечение гипергидроза Диспорт, 1 ед","time":"","price":140}]},{"category":"Введение ГКС внутрикожно","services":[{"name":"Внутрикожное введение лекарственных препаратов (Дипроспан)","time":"00:30","price":5000},{"name":"Внутрикожное введение лекарственных препаратов (Кеналог)","time":"00:30","price":5000},{"name":"Внутрикожное введение лекарственных препаратов (Линкомицин)","time":"00:30","price":2000},{"name":"Инъекционное введение фермента бовгиалуронидазы (ЛОНГИДАЗА)","time":"00:40","price":7000},{"name":"подкожное введение лекарственных препаратов  витамин С","time":"","price":4000},{"name":"CURACEN","time":"01:00","price":7500},{"name":"Лонгидаза 1 амп","time":"00:40","price":12000}]},{"category":"Волосы","services":[{"name":"Hair X, 1.3 мл","time":"00:40","price":8500},{"name":"Хэир Икс ДНА Пептид, 2 мл","time":"00:40","price":10500}]},{"category":"ИНЪЕКЦИОННАЯ КОСМЕТОЛОГИЯ","services":[{"name":"КАНЮЛЯ","time":"","price":1200}]},{"category":"КАПЕЛЬНИЦА","services":[{"name":"Внутривенный коктейль \"Детокс\" 1 ступень","time":"01:10","price":5000},{"name":"Внутривенный коктейль \"Энерджи\"","time":"01:10","price":5000},{"name":"Внутривенный коктейль \"Детокс\" 2 ступень","time":"01:10","price":7500},{"name":"Внутривенный коктейль \"Золушка\" с глутатионом","time":"01:10","price":11000},{"name":"Внутривенный коктейль \"Улучшение метаболизма\"","time":"01:10","price":5000}]},{"category":"Коллагеностимуляция","services":[{"name":"Radiesse 1.5 мл","time":"01:10","price":38000},{"name":"Radiesse 3 мл","time":"01:30","price":72000},{"name":"ELLAGEN 200 мг","time":"","price":45000},{"name":"ELLAGEN дермальный филлер 1000 мг","time":"01:30","price":90000},{"name":"SCULPTRA  1 флакон","time":"01:30","price":60000},{"name":"Миралайн ПЛЛА 28","time":"","price":45000},{"name":"AestheFill (1 флакон 200 мг)","time":"01:30","price":65000},{"name":"Juvelook 50 мг","time":"01:00","price":62000},{"name":"Lenisna 200 мг","time":"01:00","price":65000},{"name":"Белларти Эстилла","time":"00:50","price":35000},{"name":"Пауэрфил 1000 мг","time":"01:30","price":100000}]},{"category":"Коллагенотерапия","services":[{"name":"СФЕРОгель Light 0.5  ml","time":"00:40","price":14000},{"name":"СФЕРОгель Long Fine 0.5 ml","time":"00:40","price":23000},{"name":"СФЕРОгель Medium 0.5 ml","time":"00:40","price":16000},{"name":"Внутрикожная контурная пластика (Гель Коллост 15% 1.5мл)","time":"01:00","price":26000},{"name":"Внутрикожная контурная пластика (Гель Коллост 7% 0.5мл)","time":"01:00","price":15000},{"name":"Внутрикожная контурная пластика (Гель Коллост 7% 1.5мл)","time":"01:00","price":24000},{"name":"Внутрикожная контурная пластика (Гель Коллост микро)","time":"01:00","price":28000},{"name":"Имплантат для внутрикожного и подслизистого введения на основе коллагена Agentcol 003col (Эйдженткол 003col) 2 ml","time":"","price":15000},{"name":"Имплантат для внутрикожного и подслизистого введения на основе коллагена Agentcol 004col (Эйдженткол 004col) 2 ml","time":"","price":18500},{"name":"Линрайз 100 мг","time":"","price":34000},{"name":"СФЕРОгель Лонг Адвансд 0.5 мл","time":"00:40","price":20000}]},{"category":"Комплексы и абонементы на услуги","services":[{"name":"A22.01.005Проведение жен.лаз. эпиляции ВСЕ ЗОНЫ НА ТЕЛЕ И ЛИЦЕ","time":"03:00","price":21000},{"name":"A22.01.005Проведение жен.лаз. эпиляции ГЛУБОКОЕ БИКИНИ, ПОДМЫШКИ","time":"00:45","price":6000},{"name":"A22.01.005Проведение жен.лаз. эпиляции ГОЛЕНИ С КОЛЕНОМ, ГЛУБОКОЕ БИКИНИ, ПОДМЫШКИ","time":"01:00","price":11100},{"name":"A22.01.005Проведение жен.лаз. эпиляции НОГИ ПОЛНОСТЬЮ, ГЛУБОКОЕ БИКИНИ","time":"01:00","price":10800},{"name":"A22.01.005Проведение жен.лаз. эпиляции НОГИ ПОЛНОСТЬЮ, ГЛУБОКОЕ БИКИНИ, ПОДМЫШКИ","time":"01:30","price":12800},{"name":"A22.01.005Проведение жен.лаз. эпиляции НОГИ ПОЛНОСТЬЮ, ПОДМЫШКИ","time":"01:00","price":8800}]},{"category":"Консультации","services":[{"name":"Диагностика кожи на аппарате Janus","time":"","price":2500}]},{"category":"Контурная пластика","services":[{"name":"Belotero Balance (1мл)","time":"01:00","price":26000},{"name":"Belotero Intence (1мл)","time":"01:00","price":28000},{"name":"Belotero Lips Countour(0.6мл)","time":"01:00","price":23000},{"name":"Belotero Soft (1 мл)","time":"01:00","price":25000},{"name":"Belotero Volume (1мл)","time":"01:00","price":28000},{"name":"Juvederm Ultra Smile (0.55мл)","time":"01:00","price":23900},{"name":"Juvederm VOLUMA (1ml)","time":"01:00","price":31000},{"name":"Novacutan FBio Light, 1 мл","time":"","price":21000},{"name":"Novacutan FBio volume, 1 мл","time":"","price":21000},{"name":"STYLAGE L 1 мл","time":"01:00","price":26000},{"name":"STYLAGE XL  1 мл","time":"01:00","price":28000},{"name":"STYLAGE М 1мл","time":"01:00","price":26000},{"name":"STYLAGE S 0,8 мл","time":"01:00","price":22000},{"name":"Belotero Lips Shape 0.6 мл","time":"01:00","price":23000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС ЛИПС 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС МЭН 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС РЕОЛОДЖИ 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС ФЛЮКС 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК ИНТЕНС ЭЛ ВИ 1 мл","time":"01:00","price":26000},{"name":"НЬЮВИА ОРГАНИК СТИМУЛЕЙТ 1 мл","time":"01:00","price":26000}]},{"category":"Коррекция фигуры ( антицел, лимфодр)","services":[{"name":"Антицеллюлитный массаж локальный (бедра+ягодицы, либо живот+бока), 40 минут","time":"00:55","price":6000},{"name":"Антицеллюлитный массаж общий, 90 минут","time":"01:45","price":8500},{"name":"Антицеллюлитный массаж общий, 60 минут","time":"01:15","price":7000},{"name":"Лимфодренажный массаж нижних конечностей, 40 минут","time":"00:55","price":5000},{"name":"Лимфодренажный массаж общий, 60 минут","time":"01:15","price":6000},{"name":"Лимфодренажный массаж общий, 90 минут","time":"01:45","price":8000}]},{"category":"Лаеннек","services":[{"name":"Плацентарная терапия препаратом \"Лаеннек\" 1 ампула 2мл.  поверхностное нанесение","time":"00:15","price":2800},{"name":"Плацентарная терапия препаратом \"Лаеннек\" в биологически активные точки (2 ампулы, 4 мл)","time":"01:00","price":9000},{"name":"Плацентарные капельницы с препаратом \"Лаеннек\" (2 ампулы, 4 мл)","time":"01:00","price":9000},{"name":"Плацентарные капельницы с препаратом \"Лаеннек\" (3 ампулы, 6 мл)","time":"01:00","price":12500},{"name":"Плацентарная терапия препаратом \"Лаеннек\" в биологически активные точки (1 ампула, 2 мл)","time":"01:00","price":5000},{"name":"Плацентарные капельницы с препаратом \"Лаеннек\" (4 ампулы, 8 мл)","time":"01:00","price":16400},{"name":"Плацентарные капельницы с препаратом \"Лаеннек\" (5 ампул, 10 мл)","time":"01:00","price":20250}]},{"category":"ЛАЗЕРНАЯ ШЛИФОВКА","services":[{"name":"Лазерная шлифовка кожи СО2. Верхние и нижние веки","time":"01:00","price":12000},{"name":"Лазерная шлифовка кожи СО2. Декольте","time":"01:00","price":23000},{"name":"Лазерная шлифовка кожи СО2. ЗОНА 10x10 см","time":"01:00","price":6000},{"name":"Лазерная шлифовка кожи СО2. Линейный рубец 1 см","time":"00:40","price":2500},{"name":"Лазерная шлифовка кожи СО2. Лицо без век","time":"01:30","price":29000},{"name":"Лазерная шлифовка кожи СО2. Лицо с веками","time":"01:30","price":35000},{"name":"Лазерная шлифовка кожи СО2. Лицо, шея, декольте","time":"01:30","price":62000},{"name":"Лазерная шлифовка кожи СО2. Лоб","time":"01:00","price":16000},{"name":"Лазерная шлифовка кожи СО2. Шея","time":"01:00","price":17500},{"name":"Лазерная шлифовка кожи СО2. Щеки","time":"01:00","price":19000}]},{"category":"ЛАЗЕРНАЯ ЭПИЛЯЦИЯ на аппарате Candela Max Pro для женщин","services":[{"name":"Проведение жен.лаз. эпиляции \"белой\" линии живота","time":"00:30","price":1990},{"name":"Проведение жен.лаз. эпиляции бедра полностью с коленями","time":"00:40","price":6800},{"name":"Проведение жен.лаз. эпиляции ореола соска","time":"00:10","price":1990},{"name":"Проведение лаз. эпиляции (1 вспышка)","time":"00:05","price":290},{"name":"Проведение жен.лаз. эпиляции внутренней поверхности бедра","time":"00:30","price":4200},{"name":"Проведение жен.лаз. эпиляции глубокое бикини","time":"00:30","price":4990},{"name":"Проведение жен.лаз. эпиляции голени с коленями","time":"00:30","price":6300},{"name":"Проведение жен.лаз. эпиляции живот полностью","time":"00:30","price":4990},{"name":"Проведение жен.лаз. эпиляции кистей рук/подъема ног","time":"00:20","price":1990},{"name":"Проведение жен.лаз. эпиляции коленей","time":"00:20","price":2390},{"name":"Проведение жен.лаз. эпиляции лицо полностью","time":"00:30","price":5490},{"name":"Проведение жен.лаз. эпиляции межбровья","time":"00:15","price":1290},{"name":"Проведение жен.лаз. эпиляции над верхней губой","time":"00:15","price":1490},{"name":"Проведение жен.лаз. эпиляции надбровья (лоб)","time":"00:15","price":2300},{"name":"Проведение жен.лаз. эпиляции ноги полностью","time":"01:00","price":8490},{"name":"Проведение жен.лаз. эпиляции плечи","time":"00:20","price":4990},{"name":"Проведение жен.лаз. эпиляции подбородка","time":"00:15","price":1990}]},{"category":"ЛАЗЕРНАЯ ЭПИЛЯЦИЯ на аппарате Candela Max Pro для мужчин","services":[{"name":"Проведение муж.лаз. эпиляции \"белой\" линии живота","time":"00:15","price":4020},{"name":"Проведение муж.лаз. эпиляции бикини","time":"00:30","price":4860},{"name":"Проведение муж.лаз. эпиляции бороды/оформление бороды","time":"00:30","price":4000},{"name":"Проведение муж.лаз. эпиляции ВСЕ ЗОНЫ НА ТЕЛЕ И ЛИЦЕ","time":"02:30","price":34000},{"name":"Проведение муж.лаз. эпиляции всего лица","time":"00:30","price":7000},{"name":"Проведение муж.лаз. эпиляции глубокое бикини","time":"00:30","price":5500},{"name":"Проведение муж.лаз. эпиляции голени с коленями","time":"01:00","price":7690}]},{"category":"ЛАЗЕРНОЕ ОМОЛОЖЕНИЕ на аппарате Candela YAG Pro","services":[{"name":"Фототерапия акне Candela YAG Pro","time":"01:00","price":9500},{"name":"Фототерапия кожи Candela YAG Pro лазерное омоложение декольте","time":"01:00","price":8000},{"name":"Фототерапия кожи Candela YAG Pro лазерное омоложение кистей рук","time":"00:40","price":5500},{"name":"Фототерапия кожи Candela YAG Pro лазерное омоложение лица","time":"01:00","price":9500},{"name":"Фототерапия кожи Candela YAG Proo лазерное омоложение шеи","time":"01:00","price":7500}]},{"category":"Липолитики","services":[{"name":"Mesoline BodyFirm","time":"01:00","price":10000},{"name":"Акваликс (Aqualyx) липолитик","time":"","price":11400},{"name":"Липолитический коктейль, 5 мл","time":"01:00","price":8000}]},{"category":"Массаж лица","services":[{"name":"Буккальный массаж лица  (75 мин)","time":"01:30","price":7200},{"name":"Массаж лица медицинский (дополнительно к основной услуге) 20  минут","time":"00:30","price":2800},{"name":"Массаж лица Медицинский/ Скульптурный (миофасциальный) лицо, шея, декольте, голова. 50 минут","time":"01:10","price":6200},{"name":"Ремоделирующий массаж лица","time":"01:15","price":7000}]},{"category":"Микротоковое воздействие","services":[{"name":"Микротоковая терапия + альгинатная маска","time":"01:00","price":9000},{"name":"Микротоковая терапия 30 минут","time":"00:30","price":4000}]},{"category":"Мэлсмон","services":[{"name":"Мэлсмон 1 ампула  поверхностное нанесение","time":"","price":5000},{"name":"Мэлсмон, 1 ампула (подкожное введение препарата)","time":"01:00","price":7500},{"name":"Мэлсмон, минимальный курс (10 ампул) подкожное введение препарата при оплате сразу","time":"01:00","price":50000},{"name":"Мэлсмон, минимальный курс (20 ампул) подкожное введение препарата","time":"01:00","price":72000},{"name":"Мэлсмон, оптимальный курс (40 ампул) подкожное введение препарата","time":"01:00","price":140000}]},{"category":"НАНОСЕКУНДНОЕ ОМОЛОЖЕНИЕ на аппарате BISON","services":[{"name":"Наносекундное омоложение Глаза","time":"01:00","price":10000},{"name":"Наносекундное омоложение Декольте","time":"01:00","price":20000}]},{"category":"Нитевой лифтинг","services":[{"name":"Введение искусственных имплантов в мягкие  ткани (Нити Вайт Эвер Скрю) 29G 38mm - 10 шт","time":"00:50","price":12000},{"name":"Введение искусственных имплантов в мягкие ткани (Нити Вайт Эвер Моно) 27G 50 mm - 10 шт","time":"","price":10000}]},{"category":"ОБЕРТЫВАНИЕ","services":[{"name":"Голубая волна обертывание","time":"01:00","price":9000},{"name":"Дренаж-экспресс обертывание","time":"01:00","price":9000},{"name":"Липо-экспресс обертывание","time":"01:00","price":9000},{"name":"Слим-экспресс обертывание","time":"01:00","price":9000}]},{"category":"Общий массаж","services":[{"name":"Классический массаж верхних конечностей, 20 минут","time":"00:30","price":2800},{"name":"Классический массаж головы, 20 минут","time":"00:35","price":1800},{"name":"Классический массаж нижних конечностей, 20 минут","time":"00:30","price":2800},{"name":"Классический массаж спины, 30 минут","time":"00:45","price":3200},{"name":"Классический общий массаж (спина,воротниковая зона,руки,ноги), 60 минут","time":"01:20","price":5500},{"name":"Классический общий массаж (спина,воротниковая зона,руки,ноги,стопы), 90 минут","time":"01:45","price":7000},{"name":"Массаж трапеции, 20 минут","time":"00:30","price":2500},{"name":"Медовый массаж тела, 45 минут","time":"01:15","price":5500},{"name":"Сегментарно-рефлекторный массаж спины, 30 минут","time":"00:45","price":3800},{"name":"Классический массаж шейно-воротниковой зоны, 20 минут","time":"00:35","price":1800}]},{"category":"ПИЛИНГИ","services":[{"name":"Пилинг (DSA Black, 1 мл)","time":"00:40","price":6000},{"name":"Пилинг (Retinol 5n RRT (ретиноловый, желтый) Dermatime","time":"00:40","price":7000},{"name":"Пилинг BioRePeel, 2 мл","time":"00:40","price":8000},{"name":"Пилинг DSA Black , 2мл","time":"00:40","price":8000},{"name":"Пилинг Meline","time":"","price":11000},{"name":"Пилинг PRX T33, 1 мл","time":"00:40","price":6000},{"name":"Пилинг PRX T33, 2 мл","time":"00:40","price":8000},{"name":"Пилинг Манделак М, 1 мл","time":"","price":6000},{"name":"А16.01024 Пилинг BioRePeel, 1 мл","time":"00:40","price":6000},{"name":"А1601.024 Пилинг Манделак М, 2 мл","time":"","price":8000}]},{"category":"Плазмотерапия","services":[{"name":"Внутрикожное введение лекарственных препаратов (МОНОГЕН) 5мл.","time":"01:00","price":7500},{"name":"Внутрикожное введение лекарственных препаратов (ПЛАЗМОНИЯ) 5 мл.","time":"01:00","price":13500},{"name":"Внутрикожное введение лекарственных препаратов (ПЛАТГЕН) 5 мл.","time":"01:00","price":17500},{"name":"Внутрикожное введение лекарственных препаратов (СORTEXIL PRP, 3 одноразовые шприц-пробирки","time":"01:00","price":18000},{"name":"Внутрикожное введение лекарственных препаратов (СORTEXIL PRP,1 одноразовая шприц-пробирка) 5 мл.","time":"01:00","price":13500},{"name":"Внутрикожное введение лекарственных препаратов (СORTEXIL PRP,2 одноразовые шприц-пробирки","time":"01:00","price":15000},{"name":"Внутрикожное введение лекарственных препаратов (СЕЛЛЕНИС) 8 мл.","time":"01:00","price":19000},{"name":"Внутрикожное введение лекарственных препаратов RegenLab ЖЕЛТАЯ пробирка 8 мл.","time":"01:00","price":40000},{"name":"Внутрикожное введение лекарственных препаратов RegenLab КРАСНАЯ пробирка 8 мл.","time":"01:00","price":20000},{"name":"Внутрикожное введение лекарственных препаратов RegenLab СИНЯЯ пробирка 8 мл.","time":"01:00","price":20000}]},{"category":"Спортивный массаж","services":[{"name":"Спортивный массаж верхних конечностей, 20 минут","time":"00:35","price":3500},{"name":"Спортивный массаж нижних конечностей, 30 минут","time":"00:45","price":4500},{"name":"Спортивный массаж общий (спина,воротниковая зона,руки,ноги), 60 мин","time":"01:15","price":6000}]},{"category":"Термаж (thermage) лица и тела","services":[{"name":"Процедура радиоволнового лифтинга (1200 импульсов)","time":"02:30","price":210000},{"name":"Процедура радиоволнового лифтинга (2000 импульсов)","time":"02:30","price":260000},{"name":"Процедура радиоволнового лифтинга (450 импульсов)","time":"02:30","price":140000},{"name":"Процедура радиоволнового лифтинга (600 импульсов)","time":"02:30","price":150000},{"name":"Процедура радиоволнового лифтинга (900 импульсов)","time":"02:30","price":170000}]},{"category":"Удаление новообразований BISON CO2","services":[{"name":"Удаление бородавки ладонной, подошвенной","time":"00:30","price":5500},{"name":"Удаление новообразования в области глаз, 1-3 шт","time":"00:40","price":4500},{"name":"Удаление папиллом до 25 шт","time":"01:00","price":20500},{"name":"Удаление паховой папилломы","time":"00:30","price":4800},{"name":"Удаление родинок/папиллом/ксантелазм, 1-3 шт","time":"00:40","price":3500}]},{"category":"УДАЛЕНИЕ ПИГМЕНТАЦИИ BISON","services":[{"name":"Удаление пигментации в области лба","time":"00:40","price":5000},{"name":"Удаление пигментации в области лица","time":"01:00","price":10000},{"name":"Удаление пигментации в области носа","time":"00:30","price":3000},{"name":"Удаление пигментации в области подбородка","time":"00:30","price":4000},{"name":"Удаление пигментации в области щек","time":"00:45","price":7500},{"name":"Удаление пигментации декольте","time":"01:00","price":9000},{"name":"Удаление пигментации кисти рук","time":"00:45","price":6000},{"name":"Удаление пигментации лицо+шея","time":"01:30","price":14000},{"name":"Удаление пигментации лицо+шея+декольте","time":"01:30","price":20000},{"name":"Удаление пигментации локально  5-10 мм (1 шт)","time":"00:40","price":1500},{"name":"Удаление пигментации локально 10-20 мм (1 шт)","time":"00:40","price":2000},{"name":"Удаление пигментации локально до 5 мм (1 шт)","time":"00:40","price":1000},{"name":"Удаление пигментации на шее","time":"00:50","price":8000},{"name":"Удаление пигментации руки до локтя","time":"01:00","price":13000},{"name":"Удаление пигментации руки полностью","time":"01:15","price":18000}]},{"category":"УДАЛЕНИЕ СОСУДИСТЫХ ПАТОЛОГИЙ (Candela YAG  Pro)","services":[{"name":"Candela YAG Pro лазерная обработка единичного бледного лентиго","time":"00:30","price":1600},{"name":"Candela YAG Pro лазерная обработка пигментных пятен до 5-ти кв.см.","time":"00:30","price":5000},{"name":"Candela YAG Pro лазерная обработка пигментных пятен кистей рук","time":"00:40","price":6200},{"name":"Candela YAG Pro лазерная обработка пигментных пятен лица","time":"01:00","price":6500},{"name":"Candela YAG Pro лазеродеструкция единичного сосудистого образования","time":"00:20","price":900},{"name":"Candela YAG Pro лазеродеструкция звездчатой гемангиомы","time":"00:30","price":1600},{"name":"Candela YAG Pro лазеродеструкция области носа","time":"00:20","price":3400},{"name":"Candela YAG Pro лазеродеструкция области щек","time":"00:30","price":5000},{"name":"Candela YAG Pro лазеродеструкция сосудов тела до 10-ти кв.см.","time":"00:40","price":7000},{"name":"Candela YAG Pro лазеродеструкция сосудов тела до 2-х кв.см.","time":"00:30","price":3200},{"name":"Candela YAG Pro лазеродеструкция сосудов тела до 4-х кв.см.","time":"00:40","price":4800},{"name":"Candela YAG Pro лазеродеструкция сосудов тела до 8-ми кв.см.","time":"00:40","price":5900},{"name":"Candela YAG Pro лазеродеструкция точечной гемангиомы","time":"00:30","price":900},{"name":"Candela YAG Pro множественные рассеянные сосуды на бедрах","time":"01:00","price":20000},{"name":"Candela YAG Pro множественные рассеянные сосуды на голенях","time":"01:00","price":18000},{"name":"Candela YAG Proo лазерная обработка пигментных пятен до 2-х кв.см.","time":"00:30","price":3400},{"name":"Удаление сосудистых паталогий (от 900р до 20000р)","time":"01:00","price":5000}]},{"category":"Уходовые процедуры и чистки","services":[{"name":"Уход ERICSON (BIOLOGIC DEFENSE)","time":"01:45","price":10020},{"name":"Уход ERICSON (HYDRA ADVANCED)","time":"01:45","price":10300}]},{"category":"Фототерапия BBL","services":[{"name":"Фототерапия кожи BBL. Декольте/ Шея/ Руки","time":"00:50","price":18000},{"name":"Фототерапия кожи BBL. Лицо  (сосуды, розацея)","time":"00:50","price":26000},{"name":"Фототерапия кожи BBL. Лицо - Шея","time":"00:50","price":32000},{"name":"Фототерапия кожи BBL. Лицо - Шея - Декольте","time":"00:50","price":46000},{"name":"Фототерапия кожи BBL. Лоб/ Щеки","time":"00:45","price":15000},{"name":"Фототерапия кожи BBL. Нос","time":"00:30","price":7500},{"name":"Фототерапия кожи BBL. Спина","time":"00:50","price":30000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Декольте","time":"01:30","price":30000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Кисти","time":"01:30","price":19000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Лицо","time":"01:30","price":40000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Лицо - Шея","time":"01:30","price":60000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Лицо - Шея - Декольте","time":"01:30","price":75000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Шея","time":"01:30","price":30000},{"name":"Фототерапия кожи, 3в1 лифтинг-сосуды-пигментация BBL Forever Young . Щеки","time":"01:30","price":22000},{"name":"Фототерапия кожи, лечение акне BBL Forever Clear. Декольте","time":"01:00","price":22000},{"name":"Фототерапия кожи, лечение акне BBL Forever Clear. Лицо  (пигментация)","time":"01:00","price":20000},{"name":"Фототерапия кожи, лечение акне BBL Forever Clear. Плечи","time":"01:00","price":15000},{"name":"Фототерапия кожи, лечение акне BBL Forever Clear. Спина","time":"01:00","price":30000},{"name":"Фототерапия кожи, лечение акне BBL Forever Clear. Щеки","time":"01:00","price":15000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Декольте","time":"01:00","price":25000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Живот","time":"01:00","price":30000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Кисти рук","time":"01:00","price":20000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Лицо - Шея","time":"01:00","price":40000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Лицо - Шея - Декольте","time":"01:00","price":50000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Лицо (лифтинг)","time":"01:00","price":35000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Шея","time":"01:00","price":25000},{"name":"Фототерапия кожи, лифтинг BBL Skin Tight. Щеки","time":"01:00","price":20000}]},{"category":"Фракционный фототермолиз Fraxel","services":[{"name":"Фракционные фототермолиз Fraxel. Шея/ щеки","time":"","price":18000},{"name":"Фракционный фототермолиз (Живот)","time":"","price":34000},{"name":"Фракционный фототермолиз Fraxel. 1 ЗОНА 10х10","time":"01:00","price":10000},{"name":"Фракционный фототермолиз Fraxel. Веки","time":"01:00","price":10000},{"name":"Фракционный фототермолиз Fraxel. Декольте","time":"01:15","price":27000},{"name":"Фракционный фототермолиз Fraxel. Кисти рук","time":"01:15","price":28000},{"name":"Фракционный фототермолиз Fraxel. Лицо","time":"","price":28000}]},{"category":"Экзосомы","services":[{"name":"Накожное нанесение лекарственных препаратов экзосомы ERSALESS","time":"00:30","price":36000},{"name":"Накожное нанесение лекарственных препаратов экзосомы ERSALESS (дополнительно к процедуре)","time":"00:30","price":26000},{"name":"Накожное нанесение лекарственных препаратов экзосомы для кожи головы ERSALESS","time":"00:30","price":36000},{"name":"Накожное нанесение лекарственных препаратов экзосомы для кожи головы ERSALESS (дополнительно к процедуре)","time":"00:30","price":26000},{"name":"Накожное нанесение лекарственных препаратов экзосомы Креабелло, 2.5 мл","time":"","price":15000},{"name":"Накожное нанесение лекарственных препаратов экзосомы Креабелло, 5 мл","time":"","price":25000}]}];
+
+    // ── Build sidebar nav ──
+    const catNav = document.getElementById('catNav');
+    const mobileSel = document.getElementById('mobileCatSelect');
+    const catSections = document.getElementById('catSections');
+
+    PRICE_DATA.forEach((cat, idx) => {
+      const id = 'cat-' + idx;
+
+      // Sidebar button
+      const btn = document.createElement('button');
+      btn.className = 'cat-nav-item';
+      btn.dataset.catId = id;
+      btn.textContent = cat.category;
+      btn.onclick = () => {
+        clearSearch();
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      };
+      catNav.appendChild(btn);
+
+      // Mobile option
+      const opt = document.createElement('option');
+      opt.value = id;
+      opt.textContent = cat.category;
+      mobileSel.appendChild(opt);
+
+      // Category section
+      const section = document.createElement('div');
+      section.className = 'cat-section';
+      section.id = id;
+
+      const title = document.createElement('h2');
+      title.className = 'cat-section-title';
+      title.textContent = cat.category;
+
+      const div = document.createElement('div');
+      div.className = 'cat-divider';
+
+      const rows = cat.services.map(s => {
+        const price = s.price.toLocaleString('ru-RU') + ' ₽';
+        const time = s.time ? s.time : '';
+        return `<div class="service-row">
+          <span class="service-name">${escHtml(s.name)}</span>
+          <span class="service-time">${escHtml(time)}</span>
+          <span class="service-price">${price}</span>
+        </div>`;
+      }).join('');
+
+      section.appendChild(title);
+      section.appendChild(div);
+      section.innerHTML += rows;
+      catSections.appendChild(section);
+    });
+
+    function escHtml(str) {
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    function scrollToCategory(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }
+
+    // ── Active sidebar tracking ──
+    const sections = () => Array.from(document.querySelectorAll('.cat-section'));
+    const navBtns = () => Array.from(document.querySelectorAll('.cat-nav-item'));
+
+    function updateActive() {
+      const scrollY = window.scrollY + 100;
+      let active = null;
+      sections().forEach(sec => {
+        if (sec.offsetTop <= scrollY) active = sec.id;
+      });
+      navBtns().forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.catId === active);
+      });
+    }
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
+
+    // ── Search ──
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const searchResultsBody = document.getElementById('searchResultsBody');
+    const searchHeading = document.getElementById('searchHeading');
+    const catSectionsEl = document.getElementById('catSections');
+    const searchIcon = document.getElementById('searchIcon');
+    const searchClear = document.getElementById('searchClear');
+
+    searchInput.addEventListener('input', doSearch);
+
+    function doSearch() {
+      const q = searchInput.value.trim().toLowerCase();
+      const hasQuery = q.length > 0;
+
+      searchIcon.style.display = hasQuery ? 'none' : '';
+      searchClear.style.display = hasQuery ? 'block' : 'none';
+
+      if (!hasQuery) {
+        searchResults.classList.remove('active');
+        catSectionsEl.style.display = '';
+        return;
+      }
+
+      catSectionsEl.style.display = 'none';
+      searchResults.classList.add('active');
+
+      let total = 0;
+      let html = '';
+
+      PRICE_DATA.forEach(cat => {
+        const matches = cat.services.filter(s =>
+          s.name.toLowerCase().includes(q)
+        );
+        if (matches.length === 0) return;
+        total += matches.length;
+
+        html += `<div class="search-cat-label">${escHtml(cat.category)}</div>`;
+        matches.forEach(s => {
+          const price = s.price.toLocaleString('ru-RU') + ' ₽';
+          const time = s.time || '';
+          const hl = highlight(s.name, q);
+          html += `<div class="service-row">
+            <span class="service-name">${hl}</span>
+            <span class="service-time">${escHtml(time)}</span>
+            <span class="service-price">${price}</span>
+          </div>`;
+        });
+      });
+
+      if (total === 0) {
+        html = '<div class="search-results-empty">Процедуры не найдены</div>';
+        searchHeading.textContent = '';
+      } else {
+        const plural = total === 1 ? 'процедура' : total < 5 ? 'процедуры' : 'процедур';
+        searchHeading.textContent = `Найдено: ${total} ${plural}`;
+      }
+
+      searchResultsBody.innerHTML = html;
+    }
+
+    function highlight(text, q) {
+      const escaped = q.replace(/[.*+?^()|[\]\\]/g, '\\$&');
+      const re = new RegExp('(' + escaped + ')', 'gi');
+      return escHtml(text).replace(re, '<mark></mark>');
+    }
+
+    function clearSearch() {
+      searchInput.value = '';
+      doSearch();
+    }
+  </script>
+
+</body>
+</html>

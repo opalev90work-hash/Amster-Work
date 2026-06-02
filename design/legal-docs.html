@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Нормативно-правовые документы — REVÉRA</title>
+  <link rel="icon" type="image/png" href="revera_logo_01.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-dark:   #1A0503;
+      --color-cognac: #602A0A;
+      --color-amber:  #D6843F;
+      --color-beige:  #D4CFCC;
+      --color-white:  #FFFFFF;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--color-dark);
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 32px 80px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      text-decoration: none;
+      opacity: 0.55;
+      transition: opacity 0.2s;
+      margin-bottom: 48px;
+    }
+    .back:hover { opacity: 1; }
+
+    .logo-small {
+      display: block;
+      width: 90px;
+      filter: invert(1) brightness(1.8);
+      margin-bottom: 40px;
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background-color: var(--color-cognac);
+      margin-bottom: 36px;
+    }
+
+    h1 {
+      font-family: "Playfair Display", serif;
+      font-weight: 400;
+      font-size: clamp(20px, 3vw, 28px);
+      letter-spacing: 0.08em;
+      color: var(--color-white);
+      margin-bottom: 48px;
+    }
+
+    .doc-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .doc-list li a {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(212, 207, 204, 0.1);
+      color: var(--color-beige);
+      text-decoration: none;
+      opacity: 0.75;
+      transition: opacity 0.2s, color 0.2s;
+    }
+
+    .doc-list li:first-child a {
+      border-top: 1px solid rgba(212, 207, 204, 0.1);
+    }
+
+    .doc-list li a:hover {
+      opacity: 1;
+      color: var(--color-amber);
+    }
+
+    .doc-list li a .icon {
+      flex-shrink: 0;
+      margin-top: 3px;
+      color: var(--color-cognac);
+    }
+
+    .doc-list li a:hover .icon {
+      color: var(--color-amber);
+    }
+
+    footer {
+      margin-top: 60px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(212, 207, 204, 0.15);
+      font-size: 11px;
+      opacity: 0.4;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <a class="back" href="index.html">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Назад
+    </a>
+
+    <h1>Нормативно-правовые документы</h1>
+
+    <ul class="doc-list">
+      <li>
+        <a href="https://www.garant.ru/products/ipo/prime/doc/72023058/" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Программа государственных гарантий бесплатного оказания гражданам медицинской помощи, утверждённая Правительством РФ от 10.12.2018 № 1506
+        </a>
+      </li>
+      <li>
+        <a href="https://base.garant.ru/70237118/" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Постановление Правительства РФ от 4 октября 2012 г. № 1006 «Об утверждении Правил предоставления медицинскими организациями платных медицинских услуг»
+        </a>
+      </li>
+      <li>
+        <a href="https://minzdrav.gov.ru/documents/7025" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Федеральный закон «Об основах охраны здоровья граждан в Российской Федерации» от 21.11.2011 № 323-ФЗ
+        </a>
+      </li>
+      <li>
+        <a href="https://rg.ru/documents/2008/12/01/pravapotr-dok.html" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Закон РФ от 07.02.1992 № 2300-1 «О защите прав потребителей»
+        </a>
+      </li>
+      <li>
+        <a href="https://www.consultant.ru/document/cons_doc_LAW_61801/" target="_blank" rel="noopener">
+          <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          Федеральный закон «О персональных данных» от 27.07.2006 № 152-ФЗ
+        </a>
+      </li>
+    </ul>
+
+    <footer>© 2026 REVÉRA</footer>
+  </div>
+</body>
+</html>

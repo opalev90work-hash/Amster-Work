@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>REVÉRA</title>
+  <link rel="icon" type="image/png" href="revera_logo_01.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-dark:   #1A0503;
+      --color-cognac: #602A0A;
+      --color-amber:  #D6843F;
+      --color-beige:  #D4CFCC;
+      --color-blush:  #D8AFA0;
+      --color-white:  #FFFFFF;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+    }
+
+    body {
+      background-color: var(--color-dark);
+      color: var(--color-beige);
+      font-family: "DM Sans", sans-serif;
+      overflow: hidden;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Layer 1: Video ── */
+    .video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .video-bg video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(26, 5, 3, 0.55);
+    }
+
+    /* ── Layer 2: Content ── */
+    main {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Logo */
+    .logo-wrap {
+      width: 66.7vw;
+      height: 22vw;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(-8px);
+      animation: fadeUp 0.9s ease-out 0.2s forwards;
+    }
+
+    .logo {
+      width: 124vw;
+      flex-shrink: 0;
+      display: block;
+      filter: invert(1) brightness(1.8);
+    }
+
+    /* Descriptor */
+    .descriptor {
+      margin-top: 18px;
+      font-family: "DM Sans", sans-serif;
+      font-size: clamp(10px, 1.2vw, 13px);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--color-beige);
+      opacity: 0;
+      animation: fadeIn 0.9s ease-out 0.5s forwards;
+    }
+
+    /* Divider */
+    .divider {
+      width: clamp(40px, 8vw, 80px);
+      height: 1px;
+      background-color: var(--color-cognac);
+      opacity: 0;
+      margin: 32px 0;
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: scaleIn 0.6s ease-out 0.7s forwards;
+    }
+
+    /* Contacts */
+    .contacts {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      font-family: "DM Sans", sans-serif;
+      font-size: clamp(11px, 1.1vw, 13px);
+      font-weight: 300;
+      color: var(--color-beige);
+      opacity: 0;
+      animation: fadeIn 0.7s ease-out 0.9s forwards;
+    }
+
+    .contacts a {
+      color: var(--color-beige);
+      text-decoration: none;
+      transition: color 0.2s;
+      white-space: nowrap;
+    }
+
+    .contacts a:hover {
+      color: var(--color-amber);
+    }
+
+    .sep {
+      margin: 0 14px;
+      opacity: 0.4;
+      user-select: none;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .contact-item svg {
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    /* ── Layer 3: Footer ── */
+    footer {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 1;
+      display: flex;
+      justify-content: center;
+      padding-bottom: clamp(16px, 2.5vh, 28px);
+      opacity: 0;
+      animation: fadeIn 0.7s ease-out 1.1s forwards;
+    }
+
+    .legal {
+      font-family: "DM Sans", sans-serif;
+      font-size: 10px;
+      color: var(--color-beige);
+      opacity: 0.45;
+      letter-spacing: 0.05em;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .legal a {
+      color: var(--color-beige);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .legal a:hover {
+      color: var(--color-amber);
+    }
+
+    .legal .sep {
+      margin: 0 10px;
+    }
+
+    .legal-row {
+      display: contents;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0.4;
+        transform: scaleX(0);
+      }
+      to {
+        opacity: 0.4;
+        transform: scaleX(1);
+      }
+    }
+
+    /* Price Button */
+    .btn-price {
+      position: relative;
+      display: inline-block;
+      margin-top: 32px;
+      padding: 12px 34px;
+      color: var(--color-white);
+      font-family: "DM Sans", sans-serif;
+      font-size: clamp(11px, 1.1vw, 13px);
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--color-white);
+      background: transparent;
+      isolation: isolate;
+      transition: color 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+      opacity: 0;
+      animation: fadeIn 0.7s ease-out 1.05s forwards;
+    }
+
+    .btn-price:hover {
+      color: var(--color-dark);
+      background: var(--color-white);
+    }
+
+    /* ── Mobile ── */
+    @media (max-width: 767px) {
+      .contacts {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .contacts .sep {
+        display: none;
+      }
+    }
+
+    /* ── Non-desktop footer ── */
+    @media (max-width: 1199px) {
+      .legal {
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .legal-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .legal-row-sep {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page">
+
+    <!-- Layer 1: Video Background -->
+    <div class="video-bg">
+      <video autoplay muted loop playsinline>
+        <source src="revera_compressed.mp4" type="video/mp4">
+      </video>
+      <div class="video-overlay"></div>
+    </div>
+
+    <!-- Layer 2: Content Center -->
+    <main>
+      <div class="logo-wrap">
+        <img class="logo" src="revera_logo_01.png" alt="REVÉRA">
+      </div>
+
+      <p class="descriptor">Дом эстетической медицины</p>
+
+      <div class="divider"></div>
+
+      <div class="contacts">
+        <span class="contact-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.4 5.4l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+          </svg>
+          <a href="tel:+74951821605">+7 (495) 182-16-05</a>
+        </span>
+
+        <span class="sep">·</span>
+
+        <span class="contact-item">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 5.4 5.4l.91-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16.92z"/>
+          </svg>
+          <a href="tel:+79691777500">+7 (969) 177-75-00</a>
+        </span>
+
+        <span class="sep">·</span>
+
+        <span class="contact-item">
+          <!-- Instagram SVG inline -->
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <circle cx="12" cy="12" r="4.5"/>
+            <circle cx="17.5" cy="6.5" r="0.1" fill="currentColor" stroke="currentColor" stroke-width="2"/>
+          </svg>
+          <a href="https://www.instagram.com/revera.moscow?igsh=MWk0Y2czdHZiNDMyaQ%3D%3D" target="_blank" rel="noopener">revera.moscow</a>
+        </span>
+
+        <span class="sep">·</span>
+
+        <span class="contact-item">
+          <a href="https://yandex.ru/maps/org/revera/130470716286/" target="_blank" rel="noopener">ЖК Русский модерн, Гоголевский бул., 29, Москва</a>
+        </span>
+      </div>
+
+      <a class="btn-price" href="price.html">Смотреть услуги</a>
+    </main>
+
+    <!-- Layer 3: Legal Footer -->
+    <footer>
+      <div class="legal">
+        <div class="legal-row">
+          <span>© 2026 REVÉRA</span>
+          <span class="sep">·</span>
+          <a href="license.pdf" target="_blank" rel="noopener">Лицензия</a>
+          <span class="sep">·</span>
+          <a href="requisites.xls" download rel="noopener">Реквизиты</a>
+        </div>
+        <span class="sep legal-row-sep">·</span>
+        <div class="legal-row">
+          <a href="user-agreement.html" target="_blank" rel="noopener">Пользовательское соглашение</a>
+          <span class="sep">·</span>
+          <a href="privacy-policy.html" target="_blank" rel="noopener">Политика конфиденциальности</a>
+        </div>
+        <span class="sep legal-row-sep">·</span>
+        <div class="legal-row">
+          <a href="legal-docs.html" target="_blank" rel="noopener">Нормативно-правовые документы</a>
+          <span class="sep">·</span>
+          <a href="regulatory-contacts.html" target="_blank" rel="noopener">Контакты органов исполнительной власти</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+</body>
+</html>

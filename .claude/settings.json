@@ -1,0 +1,44 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(gh api:*)",
+      "Bash(git --version)",
+      "Read(//private/tmp/claude-code-sparse/plugins/frontend-design/**)",
+      "Read(//tmp/claude-code-sparse/plugins/frontend-design/.claude-plugin/**)",
+      "Read(//private/tmp/claude-code-sparse/plugins/frontend-design/.claude-plugin/**)",
+      "Read(//tmp/claude-code-sparse/plugins/frontend-design/skills/frontend-design/**)",
+      "Read(//private/tmp/claude-code-sparse/plugins/frontend-design/skills/frontend-design/**)",
+      "Read(//tmp/claude-code-sparse/plugins/frontend-design/**)",
+      "Bash(mkdir -p /Users/vladimirbelov/Downloads/REVERA/.claude/plugins/frontend-design/.claude-plugin)",
+      "Bash(mkdir -p /Users/vladimirbelov/Downloads/REVERA/.claude/plugins/frontend-design/skills/frontend-design)",
+      "Bash(cp /tmp/claude-code-sparse/plugins/frontend-design/.claude-plugin/plugin.json /Users/vladimirbelov/Downloads/REVERA/.claude/plugins/frontend-design/.claude-plugin/plugin.json)",
+      "Bash(cp /tmp/claude-code-sparse/plugins/frontend-design/skills/frontend-design/SKILL.md /Users/vladimirbelov/Downloads/REVERA/.claude/plugins/frontend-design/skills/frontend-design/SKILL.md)",
+      "Bash(cp /tmp/claude-code-sparse/plugins/frontend-design/README.md /Users/vladimirbelov/Downloads/REVERA/.claude/plugins/frontend-design/README.md)",
+      "Bash(xargs ls:*)",
+      "Bash(ffmpeg -version)",
+      "Bash(brew list:*)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(brew install:*)",
+      "Bash(/opt/homebrew/bin/brew list:*)",
+      "Read(//opt/pmk/env/global/**)",
+      "Read(//opt/**)",
+      "Bash(vercel --version)",
+      "Bash(npm --version)",
+      "Bash(npm install:*)",
+      "Bash(sudo npm:*)",
+      "Bash(npx --yes vercel --version)",
+      "Bash(~/.local/node_modules/.bin/vercel --version)",
+      "Bash(npx vercel:*)",
+      "Bash(~/.local/node_modules/.bin/vercel --yes)",
+      "Read(//Users/vladimirbelov/.claude/**)",
+      "Bash(gh auth:*)",
+      "Bash(npx --yes vercel@latest --prod --yes)",
+      "Bash(zip -r ../revera-site.zip index.html price.html legal-docs.html privacy-policy.html regulatory-contacts.html user-agreement.html revera_logo_01.png revera_compressed.mp4 license.pdf requisites.xls)"
+    ],
+    "additionalDirectories": [
+      "/private/tmp/claude-code-sparse"
+    ]
+  }
+}
