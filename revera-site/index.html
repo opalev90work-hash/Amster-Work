@@ -32,7 +32,8 @@
       background-color: var(--color-dark);
       color: var(--color-beige);
       font-family: "DM Sans", sans-serif;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     /* ── Layout ── */
@@ -238,6 +239,35 @@
       }
     }
 
+    /* Promotions */
+    .promo-row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      opacity: 0;
+      animation: fadeIn 0.7s ease-out 0.95s forwards;
+    }
+
+    .promo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 10px 18px;
+      border: 1px solid var(--color-amber);
+      color: var(--color-amber);
+      font-family: "DM Sans", sans-serif;
+      font-size: clamp(9px, 1vw, 11px);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
     /* Price Button */
     .btn-price {
       position: relative;
@@ -273,6 +303,20 @@
 
       .contacts .sep {
         display: none;
+      }
+
+      .promo-row {
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 20px;
+      }
+
+      .promo-badge {
+        white-space: normal;
+        width: 100%;
+        max-width: 280px;
+        font-size: 9px;
+        padding: 8px 14px;
       }
     }
 
@@ -353,6 +397,12 @@
         <span class="contact-item">
           <a href="https://yandex.ru/maps/org/revera/130470716286/" target="_blank" rel="noopener">ЖК Русский модерн, Гоголевский бул., 29, Москва</a>
         </span>
+      </div>
+
+      <div class="promo-row">
+        <span class="promo-badge">Welcome — скидка 15% на первый визит</span>
+        <span class="promo-badge">5 процедур ICOONE — обёртывание в подарок</span>
+        <span class="promo-badge">Первая консультация бесплатно</span>
       </div>
 
       <a class="btn-price" href="price.html">Смотреть услуги</a>
